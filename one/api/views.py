@@ -11,7 +11,7 @@ def get_info(request):
     track = request.query_params.get("track")
 
     github_url = "https://github.com/bensonisaac/one"
-    github_file = "https://github.com/bensonisaac/one/blob/main/one/manage.py"
+    github_file = "https://github.com/bensonisaac/one/blob/main/one/api/views.py"
 
     current_day = datetime.now().strftime("%A")
     utc_time = datetime.now(pytz.utc)
