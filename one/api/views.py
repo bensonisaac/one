@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from datetime import datetime
 from django.utils import timezone
-import pytz
+import json
 
 
 @api_view(["GET"])
@@ -15,7 +15,20 @@ def get_info(request):
     github_file = "https://github.com/bensonisaac/one/blob/main/one/manage.py"
 
     current_day = datetime.now().strftime("%A")
-    utc_time = timezone.now().strftime('%Y-%m-%dT%H:%M:%SZ')
+    utc_time = timezone.now().strftime("%Y-%m-%d %H:%M:%S %Z")
+
+    data = {
+        "slack_name": slack_name,
+        "current_day": current_day,
+        "utc_time": utc_time,
+        "track": track,
+        "github_file_url": github_file,
+        "github_repo_url": github_url,
+        "status_code": 200,
+    }
+    format = json.dumps(data, indent=4)
+
+    format_data = json.loads(format)
 
     if slack_name is None or track is None:
         return Response(
@@ -23,14 +36,6 @@ def get_info(request):
         )
     else:
         return Response(
-            {
-                "slack_name": slack_name,
-                "current_day": current_day,
-                "utc_time": utc_time,
-                "track": track,
-                "github_file_url": github_file,
-                "github_repo_url": github_url,
-                "status_code": 200,
-            },
+            format_data,
             status.HTTP_200_OK,
         )
