@@ -12,6 +12,7 @@ def get_info(request):
     track = request.query_params.get("track")
 
     github_url = "https://github.com/bensonisaac/one"
+    github_file = "https://github.com/bensonisaac/one/blob/main/one/manage.py"
 
     current_day = datetime.now().strftime("%A")
     utc_time = timezone.now().strftime('%Y-%m-%dT%H:%M:%SZ')
@@ -27,7 +28,7 @@ def get_info(request):
                 "current_day": current_day,
                 "utc_time": utc_time,
                 "track": track,
-                "github_file_url": "",
+                "github_file_url": github_file,
                 "github_repo_url": github_url,
                 "status_code": 200,
             },
